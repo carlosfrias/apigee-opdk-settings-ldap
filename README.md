@@ -4,21 +4,39 @@ Apigee OPDK Settings for LDAP
 This role updates the Ansible cache with attributes that are used to generate templates and make 
 installation decisions. 
 
+This role will add the following attributes to the Ansible cache: 
+* opdk_ldap_ip
+* opdk_ldap_sid
+* opdk_ldap_type
+* use_opdk_ldap_remote_host
+* opdk_ldap_port
+* interface_name
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role requires that the inventory group `[dc-1-ms]` be defined. If this role finds the inventory
+groups `[dc-1-ms]`, `[dc-1-ldap]`, `[dc-2-ms]`, and `[dc-2-ldap]` then the necessary attributes will 
+be set so that replicated LDAP is properly configured between the two regions. 
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+| Name | Description |
+| --- | --- |
+| private_address | The `private_address` attribute should be set prior to using this role |
+| [dc-1-ldap] | Inventory group |
+| [dc-1-ms] | Inventory group |
+| [dc-2-ldap] | Inventory group |
+| [dc-2-ms] | Inventory group |
+| local_mgmt_ip | This attribute should be set if this is a single region deployment |
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+* apigee-opdk-setting-private-address
+* apigee-opdk-settings-management-server
 
 Example Playbook
 ----------------
