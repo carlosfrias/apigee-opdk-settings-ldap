@@ -1,7 +1,9 @@
-Role Name
+Apigee OPDK Settings for LDAP
 =========
 
-A brief description of the role goes here.
+This role updates the Ansible cache with attributes that are used to generate templates and make 
+installation decisions. 
+
 
 Requirements
 ------------
@@ -25,14 +27,13 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: apigee-opdk-settings-ldap }
 
 License
 -------
-
-BSD
+Apache 2.0
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Carlos Frias
