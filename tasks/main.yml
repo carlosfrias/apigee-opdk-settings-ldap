@@ -11,7 +11,7 @@
 - name: Normalized name for ldap ip if on dc-1
   cache:
     key: 'opdk_ldap_ip'
-    value: "{{ hostvars[groups['dc-1-ms'][0]][private_address] }}"
+    value: "{{ hostvars[groups['dc-1-ms'][0]]['private_address'] }}"
   when: groups['dc-1'] is defined and groups['dc-1-ms'] is defined and groups['dc-1-ldap'] is not defined and inventory_hostname in groups['dc-1'] and hostvars[groups['dc-1-ms'][0]][interface_name].ipv4.address is defined
 
 - block:
@@ -20,7 +20,7 @@
       key: '{{ item.key }}'
       value: "{{ item.value }}"
     with_items:
-    - { key: 'opdk_ldap_ip', value: "{{ hostvars[groups['dc-1-ldap'][0]][private_address] }}" }
+    - { key: 'opdk_ldap_ip', value: "{{ hostvars[groups['dc-1-ldap'][0]]['private_address'] }}" }
     - { key: 'opdk_ldap_sid', value: '1' }
 
   - name: Set ldap remote flag
@@ -35,13 +35,13 @@
       value: '2'
     when: groups['dc-2-ldap'] is defined
 
-  when: groups['dc-1'] is defined and groups['dc-1-ldap'] is defined and inventory_hostname in groups['dc-1'] and hostvars[groups['dc-1-ms'][0]][private_address] is defined
+  when: groups['dc-1'] is defined and groups['dc-1-ldap'] is defined and inventory_hostname in groups['dc-1'] and hostvars[groups['dc-1-ms'][0]]['private_address'] is defined
 
 - name: Normalized name for ldap ip if on dc-2
   cache:
     key: 'opdk_ldap_ip'
-    value: "{{ hostvars[groups['dc-2-ms'][0]][private_address] }}"
-  when: groups['dc-2'] is defined and groups['dc-2-ms'] is defined and groups['dc-2-ldap'] is not defined and inventory_hostname in groups['dc-2'] and hostvars[groups['dc-2-ms'][0]][private_address] is defined
+    value: "{{ hostvars[groups['dc-2-ms'][0]]['private_address'] }}"
+  when: groups['dc-2'] is defined and groups['dc-2-ms'] is defined and groups['dc-2-ldap'] is not defined and inventory_hostname in groups['dc-2'] and hostvars[groups['dc-2-ms'][0]]['private_address'] is defined
 
 - block:
   - name: Normalized name for ldap ip is declared if on dc-2
@@ -49,7 +49,7 @@
       key: '{{ item.key }}'
       value: "{{ item.value }}"
     with_items:
-    - { key: 'opdk_ldap_ip', value: "{{ hostvars[groups['dc-2-ldap'][0]][private_address] }}" }
+    - { key: 'opdk_ldap_ip', value: "{{ hostvars[groups['dc-2-ldap'][0]]['private_address'] }}" }
     - { key: 'opdk_ldap_sid', value: '2' }
 
   - name: Set ldap remote flag
@@ -64,7 +64,7 @@
       value: '2'
     when: groups['dc-1-ldap'] is defined
 
-  when: groups['dc-2'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-2'] and hostvars[groups['dc-1-ms'][0]][private_address] is defined
+  when: groups['dc-2'] is defined and groups['dc-2-ldap'] is defined and inventory_hostname in groups['dc-2'] and hostvars[groups['dc-1-ms'][0]]['private_address'] is defined
 
 - name: Normalized name for management server local ip to dc-1 if current node is not on dc-1 or dc-2
   cache:
