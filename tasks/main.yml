@@ -1,10 +1,5 @@
 ---
 # tasks file for apigee-opdk-settings-ldap
-
-- name: Refresh setup
-  setup:
-  when: ansible_default_ipv4 is not defined
-
 - name: Normalized ldap attributes
   cache:
     key: '{{ item.key }}'
@@ -15,14 +10,14 @@
 
 - name: Normalized name for ldap ip if on dc-1
   cache:
-  key: 'opdk_ldap_ip'
+    key: 'opdk_ldap_ip'
     value: "{{ hostvars[groups['dc-1-ms'][0]][private_address] }}"
   when: groups['dc-1'] is defined and groups['dc-1-ms'] is defined and groups['dc-1-ldap'] is not defined and inventory_hostname in groups['dc-1'] and hostvars[groups['dc-1-ms'][0]][interface_name].ipv4.address is defined
 
 - block:
   - name: Normalized name for ldap ip when ldap is a declared if on dc-1
     cache:
-    key: '{{ item.key }}'
+      key: '{{ item.key }}'
       value: "{{ item.value }}"
     with_items:
     - { key: 'opdk_ldap_ip', value: "{{ hostvars[groups['dc-1-ldap'][0]][private_address] }}" }
