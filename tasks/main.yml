@@ -5,6 +5,7 @@
     cacheable: yes
     opdk_ldap_type: '1'
     opdk_ldap_port: '{{ opdk_ldap_port }}'
+    use_opdk_ldap_remote_host: '{{ use_opdk_ldap_remote_host }}'
 
 - name: Normalized name for ldap ip if on dc-1
   set_fact:
