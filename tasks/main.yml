@@ -37,11 +37,11 @@
     cacheable: yes
     opdk_ldap_sid: '1'
     opdk_ldap_peer: "{{ hostvars[groups['dc_2_ldap'][0]]['private_address'] }}"
-  when: region_num == '1' and opdk_ldap_type == '2' and groups['dc_2_ldap'] is defined and inventory_hostname in groups['dc_1']
+  when: region_num is defined and region_num == '1' and opdk_ldap_type == '2' and groups['dc_2_ldap'] is defined and inventory_hostname in groups['dc_1']
 
 - name: Set the LDAP Peer IP and SID in dc_2 if replication is necessary
   set_fact:
     cacheable: yes
     opdk_ldap_sid: '2'
     opdk_ldap_peer: "{{ hostvars[groups['dc_1_ldap'][0]]['private_address'] }}"
-  when: region_num == '2' and opdk_ldap_type == '2' and groups['dc_1_ldap'] is defined and inventory_hostname in groups['dc_2']
+  when: region_num is defined and region_num == '2' and opdk_ldap_type == '2' and groups['dc_1_ldap'] is defined and inventory_hostname in groups['dc_2']
